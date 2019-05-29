@@ -1,0 +1,32 @@
+<%= form_with(model: handout, local: true) do |form| %>
+  <% if handout.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(handout.errors.count, "error") %> prohibited this handout from being saved:</h2>
+
+      <ul>
+      <% handout.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :url %>
+    <%= form.text_field :url, id: :handout_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :trainer_id %>
+    <%= form.text_field :trainer_id, id: :handout_trainer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :session_id %>
+    <%= form.text_field :session_id, id: :handout_session_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

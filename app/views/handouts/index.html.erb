@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Handouts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Url</th>
+      <th>Trainer</th>
+      <th>Session</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @handouts.each do |handout| %>
+      <tr>
+        <td><%= handout.url %></td>
+        <td><%= handout.trainer %></td>
+        <td><%= handout.session %></td>
+        <td><%= link_to 'Show', handout %></td>
+        <td><%= link_to 'Edit', edit_handout_path(handout) %></td>
+        <td><%= link_to 'Destroy', handout, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Handout', new_handout_path %>

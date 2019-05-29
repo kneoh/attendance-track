@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @session.title %>
+</p>
+
+<p>
+  <strong>Learning objectives:</strong>
+  <%= @session.learning_objectives %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @session.start_date %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%= @session.duration %>
+</p>
+
+<p>
+  <strong>Picture url:</strong>
+  <%= @session.picture_url %>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @session.event %>
+</p>
+
+<%= link_to 'Edit', edit_session_path(@session) %> |
+<%= link_to 'Back', sessions_path %>

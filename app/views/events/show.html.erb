@@ -1,0 +1,71 @@
+<p id="notice"><%= notice %></p>
+
+<h1>
+  <strong>Event:</strong>
+  <%= @event.name %>
+</h1>
+
+<p>
+  <strong>Description:</strong>
+  <%= @event.description %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @event.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @event.end_date %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @event.url %>
+</p>
+<br>
+
+<h2>Trainers at this event</h2>
+<% if !@trainers.nil? %>
+<% end %>
+<br>
+
+<h2>Sessions at this event</h2>
+<% if !@sessions.nil? %>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Learning objectives</th>
+      <th>Start date</th>
+      <th>Duration</th>
+      <th>Picture url</th>
+      <th>Event</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @sessions.each do |session| %>
+      <tr>
+        <td><%= session.title %></td>
+        <td><%= session.learning_objectives %></td>
+        <td><%= session.start_date %></td>
+        <td><%= session.duration %></td>
+        <td><%= session.picture_url %></td>
+        <td><%= link_to 'Show', session %></td>
+        <td><%= link_to 'Edit', edit_session_path(session) %></td>
+        <td><%= link_to 'Destroy', session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<% end %>
+
+<%= link_to 'New Session', new_session_event_path(@event.id) %>
+<br>
+<br>
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

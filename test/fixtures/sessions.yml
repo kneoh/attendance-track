@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  learning_objectives: MyString
+  start_date: 2019-05-29 14:40:50
+  duration: 1
+  picture_url: MyString
+  event: one
+
+two:
+  title: MyString
+  learning_objectives: MyString
+  start_date: 2019-05-29 14:40:50
+  duration: 1
+  picture_url: MyString
+  event: two
