@@ -6,10 +6,12 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Start date</th>
-      <th>End date</th>
       <th>Description</th>
+      <th>Start date</th>
+      <th>End date</th>      
+      <th>Trainers</th>
       <th>Url</th>
+
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,9 +20,17 @@
     <% @events.each do |event| %>
       <tr>
         <td><%= link_to event.name, event %></td>
-        <td><%= event.start_date %></td>
-        <td><%= event.end_date %></td>
         <td><%= event.description %></td>
+        <td><%= event.start_date %></td>
+        <td><%= event.end_date %></td>   
+        <td><% event.users.each_with_index do |r,i| %>
+            <% if i>0%>
+            ,
+            <% end%>
+            <%= link_to r.full_name, user_path(r.id) %>
+          <% end %>
+        </td>
+          </td>     
         <td><%= event.url %></td>
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>

@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
+  resources :organisations
   resources :handouts
-  get 'new/event_id/:event_id' => 'trainers#new', as: :new_trainer_event
-  resources :trainers
   resources :privileges
   resources :users
   resources :roles

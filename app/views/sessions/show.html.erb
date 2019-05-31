@@ -1,13 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
+<h1>
   <%= @session.title %>
-</p>
+</h1>
 
 <p>
   <strong>Learning objectives:</strong>
   <%= @session.learning_objectives %>
+</p>
+
+<p>
+  <strong>Topics:</strong>
+  <% if @session.topics.present? %>
+    <% @session.topics.each_with_index do |o,i|%>
+    <% if i>0 %>, <% end %><%= o.title %>
+    <% end %>
+  <% end %> 
 </p>
 
 <p>
@@ -25,10 +33,65 @@
   <%= @session.picture_url %>
 </p>
 
+<% if @event.present? %>
+<h2>Related event</h2>
 <p>
-  <strong>Event:</strong>
-  <%= @session.event %>
+  <strong>Name:</strong>
+  <%= link_to @event.name, event_path(@event.id) %>
 </p>
+<p>
+  <strong>Description:</strong>
+  <%= @event.description %>
+</p>
+<% end %>
+
+<% if @trainers.present? %>
+<h2>Trainers</h2>
+  <% @trainers.each do |t| %>
+  <p>
+    <strong>Name:</strong>
+    <%= link_to t.full_name, user_path(t.id) %>
+    |
+    <% if t.organisations.present? %>
+      <strong>Organisation:</strong>
+      <% t.organisations.each_with_index do |o,i| %>
+        <% if i>0 %>, <% end %><%= o.name %> (<%= o.abbr %>)
+      <% end %>
+    <% end %>
+    |
+    <% if t.roles.present? %>
+      <strong>Role:</strong>
+      <% t.roles.each_with_index do |o,i| %>
+        <% if i>0 %>, <% end %><%= o.title %>
+      <% end %>
+    <% end %>
+  </p>
+  <% end %>
+<% end %>
+
+<% if @pax.present? %>
+<h2>Participants</h2>
+  <% @pax.each do |p| %>
+  <p>
+    <strong>Name:</strong>
+    <%= link_to p.full_name, user_path(p.id) %>
+    |
+    <% if p.organisations.present? %>
+      <strong>Organisation:</strong>
+      <% p.organisations.each_with_index do |o,i| %>
+        <% if i>0 %>, <% end %><%= o.name %> (<%= o.abbr %>)
+      <% end %>
+    <% end %>
+    |
+    <% if p.roles.present? %>
+      <strong>Role:</strong>
+      <% p.roles.each_with_index do |o,i| %>
+        <% if i>0 %>, <% end %><%= o.title %>
+      <% end %>
+    <% end %>
+  </p>
+  <% end %>
+<% end %>
 
 <%= link_to 'Edit', edit_session_path(@session) %> |
 <%= link_to 'Back', sessions_path %>

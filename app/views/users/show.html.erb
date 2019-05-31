@@ -11,13 +11,23 @@
 </p>
 
 <p>
-  <strong>Organisation:</strong>
-  <%= @user.organisation %>
+  <strong>Organisation:</strong>  
+  <% @user.organisations.each_with_index do |r,i| %>
+    <%if i> 0%>
+    ,
+    <% end %>
+    <%= r.name %> (<%= r.abbr %>)
+  <% end %>
 </p>
 
 <p>
   <strong>Role user:</strong>
-  <%= @user.role_ids %>
+  <% @user.roles.each_with_index do |r,i| %>
+    <%if i> 0%>
+    ,
+    <% end %>
+    <%= r.title %>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

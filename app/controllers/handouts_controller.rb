@@ -69,6 +69,6 @@ class HandoutsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def handout_params
-      params.require(:handout).permit(:url, :trainer_id, :session_id)
+      params.require(:handout).permit(:user_id, :session_id, :url)
     end
 end

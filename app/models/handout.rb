@@ -1,4 +1,4 @@
 class Handout < ApplicationRecord
-  belongs_to :trainer
+  belongs_to :user
   belongs_to :session
 end

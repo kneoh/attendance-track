@@ -32,6 +32,15 @@
   </div>
 
   <div class="field">
+    <%= form.label :trainers %>
+    <%= form.collection_check_boxes :user_ids, User.joins(:roles).where('role_id > 3').uniq, :id, :full_name do |t| %>
+      <div class="collection-check-box" >
+        <%= t.check_box %> <%= t.label %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field">
     <%= form.label :url %>
     <%= form.text_field :url, id: :event_url %>
   </div>

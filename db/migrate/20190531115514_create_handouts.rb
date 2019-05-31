@@ -1,9 +1,9 @@
 class CreateHandouts < ActiveRecord::Migration[5.1]
   def change
     create_table :handouts do |t|
-      t.string :url
-      t.references :trainer, foreign_key: true
+      t.references :user, foreign_key: true
       t.references :session, foreign_key: true
+      t.string :url
 
       t.timestamps
     end

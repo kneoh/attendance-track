@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190529134551) do
+ActiveRecord::Schema.define(version: 20190531122358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,14 +25,37 @@ ActiveRecord::Schema.define(version: 20190529134551) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "events_users", id: false, force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["event_id", "user_id"], name: "index_events_users_on_event_id_and_user_id"
+    t.index ["user_id", "event_id"], name: "index_events_users_on_user_id_and_event_id"
+  end
+
   create_table "handouts", force: :cascade do |t|
-    t.string "url"
-    t.bigint "trainer_id"
+    t.bigint "user_id"
     t.bigint "session_id"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["session_id"], name: "index_handouts_on_session_id"
-    t.index ["trainer_id"], name: "index_handouts_on_trainer_id"
+    t.index ["user_id"], name: "index_handouts_on_user_id"
+  end
+
+  create_table "organisations", force: :cascade do |t|
+    t.string "name"
+    t.string "abbr"
+    t.string "email"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "organisations_users", id: false, force: :cascade do |t|
+    t.bigint "organisation_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["organisation_id", "user_id"], name: "index_organisations_users_on_organisation_id_and_user_id"
+    t.index ["user_id", "organisation_id"], name: "index_organisations_users_on_user_id_and_organisation_id"
   end
 
   create_table "privileges", force: :cascade do |t|
@@ -63,15 +86,6 @@ ActiveRecord::Schema.define(version: 20190529134551) do
     t.index ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
   end
 
-  create_table "session_topics", id: false, force: :cascade do |t|
-    t.bigint "session_id"
-    t.bigint "topic_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["session_id"], name: "index_session_topics_on_session_id"
-    t.index ["topic_id"], name: "index_session_topics_on_topic_id"
-  end
-
   create_table "sessions", force: :cascade do |t|
     t.string "title"
     t.string "learning_objectives"
@@ -84,16 +98,16 @@ ActiveRecord::Schema.define(version: 20190529134551) do
     t.index ["event_id"], name: "index_sessions_on_event_id"
   end
 
-  create_table "sessions_trainers", id: false, force: :cascade do |t|
+  create_table "sessions_topics", id: false, force: :cascade do |t|
     t.bigint "session_id", null: false
-    t.bigint "trainer_id", null: false
-    t.index ["session_id", "trainer_id"], name: "index_sessions_trainers_on_session_id_and_trainer_id"
-    t.index ["trainer_id", "session_id"], name: "index_sessions_trainers_on_trainer_id_and_session_id"
+    t.bigint "topic_id", null: false
+    t.index ["session_id"], name: "index_sessions_topics_on_session_id_and_topic_id"
+    t.index ["topic_id"], name: "index_sessions_topics_on_topic_id_and_session_id"
   end
 
   create_table "sessions_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "session_id", null: false
+    t.bigint "user_id", null: false
     t.index ["session_id", "user_id"], name: "index_sessions_users_on_session_id_and_user_id"
     t.index ["user_id", "session_id"], name: "index_sessions_users_on_user_id_and_session_id"
   end
@@ -105,26 +119,14 @@ ActiveRecord::Schema.define(version: 20190529134551) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "trainers", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "category"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_trainers_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "full_name"
-    t.string "email"
-    t.string "organisation"
+    t.string "email", unique: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_foreign_key "handouts", "sessions"
-  add_foreign_key "handouts", "trainers"
-  add_foreign_key "session_topics", "sessions"
-  add_foreign_key "session_topics", "topics"
+  add_foreign_key "handouts", "users"
   add_foreign_key "sessions", "events"
-  add_foreign_key "trainers", "users"
 end

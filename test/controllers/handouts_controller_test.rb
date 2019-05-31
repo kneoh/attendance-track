@@ -17,7 +17,7 @@ class HandoutsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create handout" do
     assert_difference('Handout.count') do
-      post handouts_url, params: { handout: { session_id: @handout.session_id, trainer_id: @handout.trainer_id, url: @handout.url } }
+      post handouts_url, params: { handout: { session_id: @handout.session_id, url: @handout.url, user_id: @handout.user_id } }
     end
 
     assert_redirected_to handout_url(Handout.last)
@@ -34,7 +34,7 @@ class HandoutsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update handout" do
-    patch handout_url(@handout), params: { handout: { session_id: @handout.session_id, trainer_id: @handout.trainer_id, url: @handout.url } }
+    patch handout_url(@handout), params: { handout: { session_id: @handout.session_id, url: @handout.url, user_id: @handout.user_id } }
     assert_redirected_to handout_url(@handout)
   end
 

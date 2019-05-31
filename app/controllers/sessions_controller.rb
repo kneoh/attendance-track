@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
   # GET /sessions/1
   # GET /sessions/1.json
   def show
+    @event = Event.find(@session.event_id)
   end
 
   # GET /sessions/new
@@ -66,10 +67,12 @@ class SessionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_session
       @session = Session.find(params[:id])
+      @trainers = @session.users.joins(:roles).where('role_id > 3').uniq
+      @pax = @session.users.joins(:roles).where('role_id <= 3').uniq
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_params
-      params.require(:session).permit(:title, :learning_objectives, :start_date, :duration, :picture_url, :event_id)
+      params.require(:session).permit(:title, :learning_objectives, :start_date, :duration, :picture_url, :event_id, topic_ids:[], user_ids:[])
     end
 end

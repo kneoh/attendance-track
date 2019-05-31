@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Abbreviation:</strong>
+  <%= @organisation.abbr %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @organisation.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @organisation.email %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @organisation.url %>
+</p>
+
+
+<%= link_to 'Edit', edit_organisation_path(@organisation) %> |
+<%= link_to 'Back', organisations_path %>

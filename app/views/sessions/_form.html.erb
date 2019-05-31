@@ -22,6 +22,20 @@
   </div>
 
   <div class="field">
+    <%= form.label :topics %>
+    <%= form.collection_check_boxes :topic_ids, Topic.all, :id, :title do |t| %>  
+      <div class="collection-check-box" >
+        <%= t.check_box %> <%= t.label %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :event_id %>
+    <%= form.collection_select :event_id, Event.all, :id, :name, prompt: true, selected: Event.find_by_id(@event_id) ? @event_id : @session.event_id %>    
+  </div>
+
+  <div class="field">
     <%= form.label :start_date %>
     <%= form.datetime_select :start_date, id: :session_start_date %>
   </div>
@@ -32,14 +46,28 @@
   </div>
 
   <div class="field">
+    <%= form.label :trainers %>
+    <%= form.collection_check_boxes :user_ids, User.joins(:roles).where('role_id > 3').uniq, :id, :full_name do |t| %>
+      <div class="collection-check-box" >
+        <%= t.check_box %> <%= t.label %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :participants %>
+    <%= form.collection_check_boxes :user_ids, User.joins(:roles).where('role_id <= 3').uniq, :id, :full_name do |t| %>
+      <div class="collection-check-box" >
+        <%= t.check_box %> <%= t.label %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field">
     <%= form.label :picture_url %>
     <%= form.text_field :picture_url, id: :session_picture_url %>
   </div>
 
-  <div class="field">
-    <%= form.label :event_id %>
-    <%= form.collection_select :event_id, Event.all, :id, :name, prompt: true, :selected => Event.find_by_id(@event_id) ? @event_id : nil %>    
-  </div>
   <div class="actions">
     <%= form.submit %>
   </div>

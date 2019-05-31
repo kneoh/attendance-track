@@ -7,6 +7,7 @@
     <tr>
       <th>Title</th>
       <th>Learning objectives</th>
+      <th>Topic</th>
       <th>Start date</th>
       <th>Duration</th>
       <th>Picture url</th>
@@ -20,10 +21,17 @@
       <tr>
         <td><%= session.title %></td>
         <td><%= session.learning_objectives %></td>
+        <td>
+          <td>
+          <% session.topics.each_with_index do |o, i| %>
+            <% if i> 0%>, <% end %>
+            <%= o.title %>
+          <% end %>                  
+        </td>
         <td><%= session.start_date %></td>
         <td><%= session.duration %></td>
         <td><%= session.picture_url %></td>
-        <td><%= session.event %></td>
+        <td><%= link_to Event.find(session.event_id).name, event_path(session.event_id) %></td>
         <td><%= link_to 'Show', session %></td>
         <td><%= link_to 'Edit', edit_session_path(session) %></td>
         <td><%= link_to 'Destroy', session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
