@@ -11,7 +11,6 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @sessions = Session.where(event_id: @event)
-    @users = @event.users
   end
 
   # GET /events/new
@@ -26,6 +25,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    p "==========================="
     @event = Event.new(event_params)
 
     respond_to do |format|
@@ -71,6 +71,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :start_date, :end_date, :description, :url, user_ids:[])      
+      params.require(:event).permit(:name, :start_date, :end_date, :description, :url)      
     end
 end

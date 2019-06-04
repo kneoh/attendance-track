@@ -10,26 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190531122358) do
+ActiveRecord::Schema.define(version: 20190601061759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "audiences", force: :cascade do |t|
+    t.bigint "event_id"
+    t.bigint "role_id"
+    t.bigint "user_id"
+    t.index ["event_id"], name: "index_aadiences_on_event_id"
+    t.index ["role_id"], name: "index_audiences_on_role_id"
+    t.index ["user_id"], name: "index_audiences_on_user_id"
+  end
 
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.string "description"
+    t.text "description"
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "events_users", id: false, force: :cascade do |t|
-    t.bigint "event_id", null: false
-    t.bigint "user_id", null: false
-    t.index ["event_id", "user_id"], name: "index_events_users_on_event_id_and_user_id"
-    t.index ["user_id", "event_id"], name: "index_events_users_on_user_id_and_event_id"
   end
 
   create_table "handouts", force: :cascade do |t|
@@ -60,7 +62,7 @@ ActiveRecord::Schema.define(version: 20190531122358) do
 
   create_table "privileges", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -74,21 +76,14 @@ ActiveRecord::Schema.define(version: 20190531122358) do
 
   create_table "roles", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "roles_users", id: false, force: :cascade do |t|
-    t.bigint "role_id", null: false
-    t.bigint "user_id", null: false
-    t.index ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id"
-    t.index ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
-  end
-
   create_table "sessions", force: :cascade do |t|
     t.string "title"
-    t.string "learning_objectives"
+    t.text "learning_objectives"
     t.datetime "start_date"
     t.integer "duration"
     t.string "picture_url"
@@ -114,18 +109,21 @@ ActiveRecord::Schema.define(version: 20190531122358) do
 
   create_table "topics", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "full_name"
-    t.string "email", unique: true
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "audiences", "events"
+  add_foreign_key "audiences", "roles"
+  add_foreign_key "audiences", "users"
   add_foreign_key "handouts", "sessions"
   add_foreign_key "handouts", "users"
   add_foreign_key "sessions", "events"

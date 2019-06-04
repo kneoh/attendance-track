@@ -25,8 +25,8 @@
   <%= @event.url %>
 </p>
 
-<h2>Trainers at this event</h2>
-<% if @users.present? %>
+<% if @pax.present? %>
+<h2>Participants at this event</h2>
 <table>
   <thead>
     <tr>
@@ -37,17 +37,50 @@
   </thead>
   
   <tbody>
-    <% @users.each do |user| %>
+    <% @pax.each do |t| %>
       <tr>
-        <td><%= link_to user.full_name, user %></td>
+        <td><%= link_to t.full_name, t %></td>
         <td>
-          <% user.organisations.each_with_index do |o, i| %>
+          <% t.organisations.each_with_index do |o, i| %>
             <% if i> 0%>, <% end %>
             <%= o.name %> (<%= o.abbr %>)
             <% end %>          
         </td>
         <td>
-          <% user.roles.each_with_index do |o, i| %>
+          <% t.roles.each_with_index do |o, i| %>
+            <% if i> 0%>, <% end %>
+            <%= o.title %>
+          <% end %>          
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<% if @trainers.present? %>
+<h2>Trainers at this event</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Organisation</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @trainers.each do |t| %>
+      <tr>
+        <td><%= link_to t.full_name, t %></td>
+        <td>
+          <% t.organisations.each_with_index do |o, i| %>
+            <% if i> 0%>, <% end %>
+            <%= o.name %> (<%= o.abbr %>)
+            <% end %>          
+        </td>
+        <td>
+          <% t.roles.each_with_index do |o, i| %>
             <% if i> 0%>, <% end %>
             <%= o.title %>
           <% end %>          
