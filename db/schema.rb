@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20190605092043) do
 
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,17 +24,23 @@ ActiveRecord::Schema.define(version: 20190605092043) do
     t.index ["event_id"], name: "index_attendees_on_event_id"
     t.index ["role_id"], name: "index_attendees_on_role_id"
     t.index ["user_id"], name: "index_attendees_on_user_id"
-
   end
 
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.text "description"
+    t.string "description"
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "events_users", id: false, force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["event_id", "user_id"], name: "index_events_users_on_event_id_and_user_id"
+    t.index ["user_id", "event_id"], name: "index_events_users_on_user_id_and_event_id"
   end
 
   create_table "handouts", force: :cascade do |t|
@@ -66,7 +71,7 @@ ActiveRecord::Schema.define(version: 20190605092043) do
 
   create_table "privileges", force: :cascade do |t|
     t.string "title"
-    t.text "description"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -80,14 +85,21 @@ ActiveRecord::Schema.define(version: 20190605092043) do
 
   create_table "roles", force: :cascade do |t|
     t.string "title"
-    t.text "description"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "roles_users", id: false, force: :cascade do |t|
+    t.bigint "role_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id"
+    t.index ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string "title"
-    t.text "learning_objectives"
+    t.string "learning_objectives"
     t.datetime "start_date"
     t.integer "duration"
     t.string "picture_url"
@@ -113,7 +125,7 @@ ActiveRecord::Schema.define(version: 20190605092043) do
 
   create_table "topics", force: :cascade do |t|
     t.string "title"
-    t.text "description"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -124,7 +136,6 @@ ActiveRecord::Schema.define(version: 20190605092043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
 
   add_foreign_key "attendees", "events"
   add_foreign_key "attendees", "roles"
