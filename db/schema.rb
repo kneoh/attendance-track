@@ -10,11 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20190605092043) do
+=======
+ActiveRecord::Schema.define(version: 20190601061759) do
+>>>>>>> 9b81d55d9c3f7e9001dfa3b8f5c384baacf19bb4
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+<<<<<<< HEAD
   create_table "attendees", force: :cascade do |t|
     t.bigint "event_id"
     t.bigint "user_id"
@@ -24,23 +29,25 @@ ActiveRecord::Schema.define(version: 20190605092043) do
     t.index ["event_id"], name: "index_attendees_on_event_id"
     t.index ["role_id"], name: "index_attendees_on_role_id"
     t.index ["user_id"], name: "index_attendees_on_user_id"
+=======
+  create_table "audiences", force: :cascade do |t|
+    t.bigint "event_id"
+    t.bigint "role_id"
+    t.bigint "user_id"
+    t.index ["event_id"], name: "index_aadiences_on_event_id"
+    t.index ["role_id"], name: "index_audiences_on_role_id"
+    t.index ["user_id"], name: "index_audiences_on_user_id"
+>>>>>>> 9b81d55d9c3f7e9001dfa3b8f5c384baacf19bb4
   end
 
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.string "description"
+    t.text "description"
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "events_users", id: false, force: :cascade do |t|
-    t.bigint "event_id", null: false
-    t.bigint "user_id", null: false
-    t.index ["event_id", "user_id"], name: "index_events_users_on_event_id_and_user_id"
-    t.index ["user_id", "event_id"], name: "index_events_users_on_user_id_and_event_id"
   end
 
   create_table "handouts", force: :cascade do |t|
@@ -71,7 +78,7 @@ ActiveRecord::Schema.define(version: 20190605092043) do
 
   create_table "privileges", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -85,21 +92,14 @@ ActiveRecord::Schema.define(version: 20190605092043) do
 
   create_table "roles", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "roles_users", id: false, force: :cascade do |t|
-    t.bigint "role_id", null: false
-    t.bigint "user_id", null: false
-    t.index ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id"
-    t.index ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
-  end
-
   create_table "sessions", force: :cascade do |t|
     t.string "title"
-    t.string "learning_objectives"
+    t.text "learning_objectives"
     t.datetime "start_date"
     t.integer "duration"
     t.string "picture_url"
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 20190605092043) do
 
   create_table "topics", force: :cascade do |t|
     t.string "title"
-    t.string "description"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -137,9 +137,15 @@ ActiveRecord::Schema.define(version: 20190605092043) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
   add_foreign_key "attendees", "events"
   add_foreign_key "attendees", "roles"
   add_foreign_key "attendees", "users"
+=======
+  add_foreign_key "audiences", "events"
+  add_foreign_key "audiences", "roles"
+  add_foreign_key "audiences", "users"
+>>>>>>> 9b81d55d9c3f7e9001dfa3b8f5c384baacf19bb4
   add_foreign_key "handouts", "sessions"
   add_foreign_key "handouts", "users"
   add_foreign_key "sessions", "events"

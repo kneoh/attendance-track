@@ -25,8 +25,41 @@
   <%= @event.url %>
 </p>
 
-<h2>Trainers at this event</h2>
+<% if @pax.present? %>
+<h2>Participants at this event</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Organisation</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <% @pax.each do |t| %>
+      <tr>
+        <td><%= link_to t.full_name, t %></td>
+        <td>
+          <% t.organisations.each_with_index do |o, i| %>
+            <% if i> 0%>, <% end %>
+            <%= o.name %> (<%= o.abbr %>)
+            <% end %>          
+        </td>
+        <td>
+          <% t.roles.each_with_index do |o, i| %>
+            <% if i> 0%>, <% end %>
+            <%= o.title %>
+          <% end %>          
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
 <% if @trainers.present? %>
+<h2>Trainers at this event</h2>
 <table>
   <thead>
     <tr>
@@ -39,7 +72,7 @@
   <tbody>
     <% @trainers.each do |user| %>
       <tr>
-        <td><%= link_to user.full_name, user %></td>
+        <td><%= link_to t.full_name, t %></td>
         <td>
           <% user.organisations.each_with_index do |o, i| %>
             <% if i> 0%>, <% end %>
@@ -124,6 +157,6 @@
 
 <%= link_to 'New Session', new_session_event_path(@event.id) %>
 <br>
-<br>
+
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>

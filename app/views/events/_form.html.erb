@@ -31,10 +31,24 @@
     <%= form.text_field :description, id: :event_description %>
   </div>
 
+<<<<<<< HEAD
   <h3>Attendance</h3>
   <div id='attendees_attributes'>
     <%= form.fields_for :attendees do |a| %>
       <%= render 'attendee_fields', f: a %>      
+=======
+  <div class="field">
+    <%= form.label :trainers %>
+    <%= form.link_to_add_association 'Add Trainer', :users %>
+  </div>
+
+  <div class="field">
+    <%= form.label :participants %>
+    <%= form.collection_check_boxes :user_ids, User.joins(:audiences).where('role_id <= 3').uniq, :id, :full_name do |t| %>
+      <div class="collection-check-box" >
+        <%= t.check_box %> <%= t.label %>
+      </div>
+>>>>>>> 9b81d55d9c3f7e9001dfa3b8f5c384baacf19bb4
     <% end %>
     <div class='links'>
       <%= link_to_add_association 'add attendee', form, :attendees %>

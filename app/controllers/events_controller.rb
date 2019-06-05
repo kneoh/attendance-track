@@ -25,6 +25,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    p "==========================="
     @event = Event.new(event_params)
 
     respond_to do |format|
@@ -68,7 +69,6 @@ class EventsController < ApplicationController
       @event = Event.find(params[:id])
       @participants = User.joins(:attendees, :events, :roles).where('roles.id <= 3 AND events.id ='+params[:id]).distinct
       @trainers = User.joins(:attendees, :events, :roles).where('roles.id > 3 AND events.id ='+params[:id]).distinct
-      p @trainers
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

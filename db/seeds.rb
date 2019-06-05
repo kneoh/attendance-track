@@ -51,15 +51,20 @@ end
 %w[
   BEST
   EMSA
-  IFMSA  
+  IFMSA
+  EPSA  
 ].each do |p|
   Organisation.create(abbr: p)
 end
 
 Event.create!(name: 'Leadership Summer School 2019')
+Event.create!(name: 'BTD Communication')
 
-Session.create!(title: 'Leadership 101', event_id: 1, topic_ids: [4])
-Session.create!(title: 'Silent Leader', event_id: 1, topic_ids: [1])
+Session.create!(title: 'Leadership 101', event_id: 1, topic_ids: [3,4])
+Session.create!(title: 'Silent Leader', event_id: 1, topic_ids: 1)
 
-User.create!(full_name: 'Paul dR', email: 'pdr@', organisation_ids: [2,3])
-User.create!(full_name: 'Mark Hamil', organisation_ids: 1)
+User.create!(full_name: 'Paul dR', email: 'pdr@', organisation_ids: [2,3], audiences_attributes: [{event_id: 1, role_id: 2}])
+User.create!(full_name: 'Mark Hamil', organisation_ids: 1, audiences_attributes: [{event_id: 1, role_id: 5}])
+User.create!(full_name: 'Simon Templar', organisation_ids: 4, audiences_attributes: [{event_id: 1, role_id: 3}])
+User.create!(full_name: 'Sarah Connors', audiences_attributes: [{event_id: 1, role_id: 3},{event_id: 2, role_id: 5}])
+User.create!(full_name: 'Gwen Parker', organisation_ids: 1, audiences_attributes: [{event_id: 1, role_id: 2},{event_id: 1, role_id: 4}])
