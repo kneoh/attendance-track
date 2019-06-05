@@ -10,16 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20190605092043) do
-=======
-ActiveRecord::Schema.define(version: 20190601061759) do
->>>>>>> 9b81d55d9c3f7e9001dfa3b8f5c384baacf19bb4
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-<<<<<<< HEAD
   create_table "attendees", force: :cascade do |t|
     t.bigint "event_id"
     t.bigint "user_id"
@@ -29,15 +25,7 @@ ActiveRecord::Schema.define(version: 20190601061759) do
     t.index ["event_id"], name: "index_attendees_on_event_id"
     t.index ["role_id"], name: "index_attendees_on_role_id"
     t.index ["user_id"], name: "index_attendees_on_user_id"
-=======
-  create_table "audiences", force: :cascade do |t|
-    t.bigint "event_id"
-    t.bigint "role_id"
-    t.bigint "user_id"
-    t.index ["event_id"], name: "index_aadiences_on_event_id"
-    t.index ["role_id"], name: "index_audiences_on_role_id"
-    t.index ["user_id"], name: "index_audiences_on_user_id"
->>>>>>> 9b81d55d9c3f7e9001dfa3b8f5c384baacf19bb4
+
   end
 
   create_table "events", force: :cascade do |t|
@@ -137,15 +125,10 @@ ActiveRecord::Schema.define(version: 20190601061759) do
     t.datetime "updated_at", null: false
   end
 
-<<<<<<< HEAD
+
   add_foreign_key "attendees", "events"
   add_foreign_key "attendees", "roles"
   add_foreign_key "attendees", "users"
-=======
-  add_foreign_key "audiences", "events"
-  add_foreign_key "audiences", "roles"
-  add_foreign_key "audiences", "users"
->>>>>>> 9b81d55d9c3f7e9001dfa3b8f5c384baacf19bb4
   add_foreign_key "handouts", "sessions"
   add_foreign_key "handouts", "users"
   add_foreign_key "sessions", "events"
