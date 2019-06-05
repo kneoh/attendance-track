@@ -6,7 +6,7 @@ class CreateSessions < ActiveRecord::Migration[5.1]
       t.datetime :start_date
       t.integer :duration
       t.string :picture_url
-      t.references :event, foreign_key: true
+      t.references :event, foreign_key: true, index: true
 
       t.timestamps
     end

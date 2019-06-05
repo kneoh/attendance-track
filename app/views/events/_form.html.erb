@@ -31,14 +31,16 @@
     <%= form.text_field :description, id: :event_description %>
   </div>
 
-  <div class="field">
-    <%= form.label :trainers %>
-    <%= form.collection_check_boxes :user_ids, User.joins(:roles).where('role_id > 3').uniq, :id, :full_name do |t| %>
-      <div class="collection-check-box" >
-        <%= t.check_box %> <%= t.label %>
-      </div>
+  <h3>Attendance</h3>
+  <div id='attendees_attributes'>
+    <%= form.fields_for :attendees do |a| %>
+      <%= render 'attendee_fields', f: a %>      
     <% end %>
+    <div class='links'>
+      <%= link_to_add_association 'add attendee', form, :attendees %>
+    </div>
   </div>
+  <br>
 
   <div class="field">
     <%= form.label :url %>

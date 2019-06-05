@@ -58,5 +58,8 @@ end
 
 Event.create!(name: 'Leadership Summer School 2019')
 
+Session.create!(title: 'Leadership 101', event_id: 1, topic_ids: [4])
+Session.create!(title: 'Silent Leader', event_id: 1, topic_ids: [1])
+
 User.create!(full_name: 'Paul dR', email: 'pdr@', organisation_ids: [2,3])
 User.create!(full_name: 'Mark Hamil', organisation_ids: 1)

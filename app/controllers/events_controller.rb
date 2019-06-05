@@ -11,7 +11,6 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @sessions = Session.where(event_id: @event)
-    @users = @event.users
   end
 
   # GET /events/new
@@ -67,10 +66,13 @@ class EventsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
+      @participants = User.joins(:attendees, :events, :roles).where('roles.id <= 3 AND events.id ='+params[:id]).distinct
+      @trainers = User.joins(:attendees, :events, :roles).where('roles.id > 3 AND events.id ='+params[:id]).distinct
+      p @trainers
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :start_date, :end_date, :description, :url, user_ids:[])      
+      params.require(:event).permit(:name, :start_date, :end_date, :description, :url, attendees_attributes: [:id, :user_id, :role_id, :_destroy])
     end
 end

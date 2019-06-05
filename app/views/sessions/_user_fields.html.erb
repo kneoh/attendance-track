@@ -1,0 +1,6 @@
+<div class='nested-fields'>
+  <div class='field'>
+    <%= f.label :Attendee %> 
+    <%= f.collection_select :id, User.all, :id, :full_name, prompt: true %>
+  </div>  
+</div>
